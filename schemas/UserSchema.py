@@ -5,17 +5,15 @@ from pydantic import BaseModel
 
 class UserSchema(BaseModel):
     id: uuid.UUID
-    username: str
-    email: str
+    login: str
+    password: str
 
 
 class UserCreate(BaseModel):
-    username: str
-    email: str
+    login: str
     password: str
 
 
 class UserResponse(BaseModel):
     id: uuid.UUID
-    username: str
-    email: str
+    login: str

@@ -8,6 +8,6 @@ class ErrEntityConflict(Exception):
         super().__init__(message)
 
 
-class ErrUNAUTHORIZED(Exception):
+class ErrUnAuthorized(Exception):
     def __init__(self, message):
         super().__init__(message)
