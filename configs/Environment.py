@@ -11,6 +11,7 @@ class EnvironmentSettings(BaseSettings):
     POSTGRES_HOST: str
     POSTGRES_PORT: str
     DEBUG: bool
+    SECRET_KEY: str
 
     class Config:
         env_file = "configs/.env"

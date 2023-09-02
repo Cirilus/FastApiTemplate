@@ -3,7 +3,7 @@ import http
 from loguru import logger
 from starlette.responses import JSONResponse
 
-from utils.errors import ErrEntityNotFound, ErrEntityConflict
+from utils.errors import ErrEntityNotFound, ErrEntityConflict, ErrUNAUTHORIZED
 
 
 def error_wrapper(func, *args, **kwargs):
@@ -15,6 +15,9 @@ def error_wrapper(func, *args, **kwargs):
     except ErrEntityConflict as e:
         logger.debug(f"err = {e}")
         return JSONResponse(status_code=http.HTTPStatus.CONFLICT, content={"msg": str(e)})
+    except ErrUNAUTHORIZED as e:
+        logger.debug(f"err = {e}")
+        return JSONResponse(status_code=http.HTTPStatus.UNAUTHORIZED, content={"msg": str(e)})
     except Exception as e:
         logger.error(f"err = {e}")
         return JSONResponse(status_code=http.HTTPStatus.INTERNAL_SERVER_ERROR, content={"msg": str(e)})

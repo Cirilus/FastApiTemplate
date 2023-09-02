@@ -11,6 +11,9 @@ fastapi = {extras = ["all"], version = "^0.103.0"}
 alembic = "^1.11.3"
 loguru = "^0.7.0"
 pytest = "^7.4.0"
+uuid = "^1.30"
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+passlib = {extras = ["bcrypt"], version = "^1.7.4"}
 
 
 [build-system]
