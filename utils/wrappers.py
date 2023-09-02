@@ -1,6 +1,6 @@
-import http
-
+from fastapi import HTTPException
 from loguru import logger
+from starlette import status
 from starlette.responses import JSONResponse
 
 from utils.errors import ErrEntityNotFound, ErrEntityConflict
@@ -11,10 +11,19 @@ def error_wrapper(func, *args, **kwargs):
         return func(*args, **kwargs)
     except ErrEntityNotFound as e:
         logger.debug(f"err = {e}")
-        return JSONResponse(status_code=http.HTTPStatus.NOT_FOUND, content={"msg": str(e)})
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=str(e),
+        )
     except ErrEntityConflict as e:
         logger.debug(f"err = {e}")
-        return JSONResponse(status_code=http.HTTPStatus.CONFLICT, content={"msg": str(e)})
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail=str(e),
+        )
     except Exception as e:
         logger.error(f"err = {e}")
-        return JSONResponse(status_code=http.HTTPStatus.INTERNAL_SERVER_ERROR, content={"msg": str(e)})
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(e),
+        )
