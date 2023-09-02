@@ -2,6 +2,7 @@
 __pycache__
 configs/.env
 
+.pytest_cache
 configs/.env
 .venv
 env/

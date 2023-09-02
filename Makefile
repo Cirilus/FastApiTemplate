@@ -8,3 +8,11 @@ migrate-revision:
 .PHONY: migrate-up
 migrate-up:
 	poetry run alembic upgrade $(rev)
+
+.PHONY: test
+test:
+	poetry run pytest
+
+.PHONY: lint
+lint:
+	poetry run pylint .
