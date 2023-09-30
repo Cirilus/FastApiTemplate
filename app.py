@@ -6,6 +6,7 @@ from starlette.middleware.cors import CORSMiddleware
 
 from configs.Environment import get_environment_variables
 
+
 app = FastAPI(openapi_url="/core/openapi.json", docs_url="/core/docs")
 
 app.add_middleware(
