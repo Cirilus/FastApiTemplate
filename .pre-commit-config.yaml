@@ -15,3 +15,4 @@ repos:
       - id: debug-statements
       - id: double-quote-string-fixer
       - id: name-tests-test
+      - id: check-added-large-files
