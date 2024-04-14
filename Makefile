@@ -9,10 +9,6 @@ migrate-revision:
 migrate-up:
 	poetry run alembic upgrade $(rev)
 
-.PHONY: test
-test:
-	poetry run pytest
-
-.PHONY: lint
-lint:
-	poetry run pylint .
+.PHONY: local
+local:
+	docker compose up postgres
