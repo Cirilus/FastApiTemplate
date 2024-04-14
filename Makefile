@@ -12,3 +12,7 @@ migrate-up:
 .PHONY: local
 local:
 	docker compose up postgres
+
+.PHONY: test
+test:
+	poetry run pytest
