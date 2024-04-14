@@ -16,5 +16,3 @@ class ErrBadRequest(Exception):
 class ErrNotAuthorized(Exception):
     def __int__(self, message):
         super().__init__(message)
-
-

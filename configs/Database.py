@@ -6,9 +6,7 @@ env = get_environment_variables()
 
 DATABASE_URL = f"postgresql+asyncpg://{env.POSTGRES_USER}:{env.POSTGRES_PASSWORD}@{env.POSTGRES_HOST}:{env.POSTGRES_PORT}/{env.POSTGRES_DB}"
 
-engine = create_async_engine(
-    DATABASE_URL, future=True
-)
+engine = create_async_engine(DATABASE_URL, future=True)
 
 async_session = async_sessionmaker(
     autocommit=False, autoflush=False, bind=engine, expire_on_commit=False
