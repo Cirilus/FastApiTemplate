@@ -1,8 +1,8 @@
 up:
 	poetry run uvicorn app:app --reload --port 8000
 
-.PHONY: migrate-revision
-migrate-revision:
+.PHONY: migrate-rev
+migrate-rev:
 	poetry run alembic revision --autogenerate -m $(name)
 
 .PHONY: migrate-up
