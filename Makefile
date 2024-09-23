@@ -11,7 +11,7 @@ migrate-up:
 
 .PHONY: local
 local:
-	docker compose up postgres
+	docker compose -f docker-compose.local.yml up
 
 .PHONY: test
 test:
