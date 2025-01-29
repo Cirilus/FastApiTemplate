@@ -24,6 +24,12 @@ class CRUDServiceMixin:
         result = await self._repo.create(entity)
         return result
 
+    async def update(self, id: uuid.UUID, updated_entity: Type[Any]) -> Type[Any]:
+        logger.debug(f"{self._repo.model.__name__} - Service - update")
+        result = await self._repo.update(id, updated_entity)
+
+        return result
+
     async def delete(self, id: uuid.UUID) -> None:
         logger.debug(f"{self._repo.model.__name__} - Service - delete")
         entity = await self._repo.get(id)

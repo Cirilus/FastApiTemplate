@@ -42,6 +42,17 @@ class CRUDRepositoryMixin:
         await self._db.refresh(instance)
         return instance
 
+    async def update(self, id: uuid.UUID, updated_entity: Type[Any]) -> Type[Any]:
+        logger.debug(f"{self._repo.model.__name__} - Repository - update")
+        existing_entity = await self._repo.get(id)
+
+        for key, value in updated_entity.dict().items():
+            if hasattr(existing_entity, key) and value is not None:
+                setattr(existing_entity, key, value)
+
+        result = await self._repo.update(existing_entity)
+        return result
+
     async def delete(self, id: uuid.UUID) -> None:
         logger.debug(f"{self.model.__name__} - Repository - delete")
         instance = await self.get(id)
