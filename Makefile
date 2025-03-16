@@ -1,15 +1,15 @@
 up:
-	poetry run uvicorn app:app --reload --port 8000
+	uv run uvicorn app:app --reload --port 8000
 
 .PHONY: migrate-rev
 migrate-rev:
 	@read -p "Enter the name of the revision: " name; \
-	poetry run alembic revision --autogenerate -m $$name
+	uv run alembic revision --autogenerate -m $$name
 
 .PHONY: migrate-up
 migrate-up:
 	@read -p "Enter the revision to upgrade to: " rev; \
-	poetry run alembic upgrade $$rev
+	uv run alembic upgrade $$rev
 
 .PHONY: local
 local:
@@ -17,4 +17,4 @@ local:
 
 .PHONY: test
 test:
-	poetry run pytest
+	uv run pytest

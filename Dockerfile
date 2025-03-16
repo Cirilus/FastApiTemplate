@@ -1,15 +1,34 @@
-FROM python:3.11-slim
+# Build stage
+FROM python:3.12-slim-bookworm AS builder
 
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+# Install uv
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
 
+# Set working directory
 WORKDIR /app
-COPY pyproject.toml poetry.lock /app/
 
-RUN pip install poetry
+# Copy dependency files
+COPY pyproject.toml uv.lock ./
 
-RUN poetry config virtualenvs.create false \
-    && poetry install --no-interaction --no-ansi
+# Install dependencies
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv pip install --system --no-deps -r pyproject.toml
 
-COPY . /app/
-CMD ["poetry", "run", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
+# Copy project files
+COPY . .
+
+# Install project
+RUN uv pip install --system -e .
+
+# Final stage
+FROM python:3.12-slim-bookworm
+
+# Copy installed packages and project files
+COPY --from=builder /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
+COPY --from=builder /app /app
+
+# Set working directory
+WORKDIR /app
+
+# Run the application
+CMD ["python", "app.py"]
