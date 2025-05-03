@@ -7,6 +7,9 @@ includes = []
 requires = ["pdm-backend"]
 build-backend = "pdm.backend"
 
+[tool.pyright]
+venvPath = "."
+venv      = ".venv"
 
 [project]
 authors = [
